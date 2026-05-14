@@ -156,6 +156,26 @@
             .fixed.bottom-8.right-8 { bottom: 1rem; right: 1rem; width: 3rem; height: 3rem; }
             .fixed svg { width: 1rem; height: 1rem; }
         }
+
+        input[type="date"],
+input[type="time"] {
+    color: white !important;
+    -webkit-text-fill-color: white;
+    position: relative;
+}
+
+/* Fix invisible placeholder/native text on mobile */
+input[type="date"]:not(:focus):not(:valid),
+input[type="time"]:not(:focus):not(:valid) {
+    color: rgba(255,255,255,0.5) !important;
+    -webkit-text-fill-color: rgba(255,255,255,0.5);
+}
+
+/* Fix icon visibility (calendar/clock) */
+input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.8;
+}
     </style>
 </head>
 <body class="antialiased">
@@ -170,7 +190,7 @@
             <a href="#transform" class="hover:text-[var(--gold)] transition">Gallery</a>
             <a href="#reviews" class="hover:text-[var(--gold)] transition">Muses</a>
         </div>
-        <a href="https://wa.me/yournumber" class="hidden md:block border border-[var(--gold)] px-6 py-2 text-[10px] tracking-widest hover:bg-[var(--gold)] hover:text-black transition duration-500">WHATSAPP CONCIERGE</a>
+       <a href="https://wa.me/2349017430885" class="hidden md:block border border-[var(--gold)] px-6 py-2 text-[10px] tracking-widest hover:bg-[var(--gold)] hover:text-black transition duration-500">WHATSAPP CONCIERGE</a>
     </nav>
 
     <!-- CINEMATIC HERO SECTION -->
@@ -226,9 +246,16 @@
                             <option class="p-4 text-sm w-full text-black/50">Bridal Glamour Suite</option>
                         </select>
                         <div class="grid grid-cols-2 gap-4">
-                            <input type="date" id="appointmentDate" class="p-4 text-sm w-full">
-                            <input type="time" id="appointmentTime" class="p-4 text-sm w-full">
-                        </div>
+    <div>
+        <label class="text-[9px] text-white/40 uppercase tracking-widest">Date</label>
+        <input type="date" id="appointmentDate" class="p-4 text-sm w-full mt-2">
+    </div>
+
+    <div>
+        <label class="text-[9px] text-white/40 uppercase tracking-widest">Time</label>
+        <input type="time" id="appointmentTime" class="p-4 text-sm w-full mt-2">
+    </div>
+</div>
                         <button type="button" onclick="sendToWhatsApp()" class="btn-glow w-full py-5 text-[11px] font-bold uppercase tracking-[0.3em]">Confirm Luxury Session</button>
                     </form>
                     
@@ -446,35 +473,36 @@
         gsap.registerPlugin(ScrollTrigger);
 
         // WhatsApp Booking Function
-        function sendToWhatsApp() {
-            const fullName = document.getElementById('fullName').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const treatment = document.getElementById('treatment').value;
-            const appointmentDate = document.getElementById('appointmentDate').value;
-            const appointmentTime = document.getElementById('appointmentTime').value;
+       function sendToWhatsApp() {
+    const fullName = document.getElementById('fullName').value;
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const treatment = document.getElementById('treatment').value;
+    const appointmentDate = document.getElementById('appointmentDate').value;
+    const appointmentTime = document.getElementById('appointmentTime').value;
 
-            // Validation
-            if (!fullName || !phoneNumber || treatment === 'Select Signature Treatment' || !appointmentDate || !appointmentTime) {
-                alert('Please fill in all booking details');
-                return;
-            }
+    if (!fullName || !phoneNumber || treatment === 'Select Signature Treatment' || !appointmentDate || !appointmentTime) {
+        alert('Please fill in all booking details');
+        return;
+    }
 
-            // Format message
-            const message = `Hi Aura Luxe! I'd like to book an appointment with the following details:%0A%0A*Name:* ${fullName}%0A*Phone:* ${phoneNumber}%0A*Treatment:* ${treatment}%0A*Date:* ${appointmentDate}%0A*Time:* ${appointmentTime}%0A%0APlease confirm my booking.`;
+    const message = encodeURIComponent(
+`Hi Aura Luxe!
 
-            // Replace 'yournumber' with actual salon WhatsApp number (update this with real number)
-            const saloonNumber = '2349017430885'; // Update with actual WhatsApp number
-            window.open(`https://wa.me/${saloonNumber}?text=${message}`, '_blank');
-        }
+I'd like to book an appointment:
 
-        // Initial Reveal
-        window.addEventListener('load', () => {
-            const tl = gsap.timeline();
-            tl.from("#hero-bg", { scale: 1.2, duration: 2, ease: "power4.out" })
-              .from("#hero-text h1", { y: 100, opacity: 0, duration: 1.2, ease: "power4.out" }, "-=1.5")
-              .from("#hero-form", { x: 100, opacity: 0, duration: 1.2, ease: "power4.out" }, "-=1")
-              .from("nav", { y: -50, opacity: 0, duration: 1 }, "-=1");
-        });
+Name: ${fullName}
+Phone: ${phoneNumber}
+Treatment: ${treatment}
+Date: ${appointmentDate}
+Time: ${appointmentTime}
+
+Please confirm my booking.`
+    );
+
+    const saloonNumber = '2349017430885';
+
+    window.open(`https://wa.me/${saloonNumber}?text=${message}`, '_blank');
+}
 
         // Parallax Effect
         gsap.to("#hero-bg", {
