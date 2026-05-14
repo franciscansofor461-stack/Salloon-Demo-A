@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA LUXE | The Ultimate Beauty Transformation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,900;1,6..96,400&family=Montserrat:wght@100;300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --champagne: #F3E5D8;
+            --gold: #C5A059;
+            --nude-beige: #D9C5B2;
+            --matte-black: #0D0D0D;
+            --soft-white: #FAF9F6;
+        }
+
+        body {
+            background-color: var(--matte-black);
+            color: var(--soft-white);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .serif { font-family: 'Bodoni Moda', serif; }
+
+        /* Cinematic Background */
+        .hero-gradient {
+            background: linear-gradient(to right, rgba(13,13,13,0.9) 30%, rgba(13,13,13,0.2) 100%);
+        }
+
+        /* Premium Glassmorphism */
+        .glass-form {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Gold Glow Pulse */
+        .btn-glow {
+            background: var(--gold);
+            color: black;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 25px rgba(197, 160, 89, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Custom Input Styling */
+        input, select {
+            background: rgba(255,255,255,0.05) !important;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3) !important;
+            transition: border-color 0.4s ease;
+        }
+        input:focus, select:focus {
+            border-color: var(--gold) !important;
+            outline: none;
+        }
+
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(197, 160, 89, 0.5);
+            color: transparent;
+        }
+
+        .reveal-img { clip-path: inset(0 100% 0 0); }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating { animation: float 6s ease-in-out infinite; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+        /* Mobile Responsiveness for 380px breakpoint */
+        @media (max-width: 380px) {
+            /* Navigation */
+            nav { padding-left: 1rem; padding-right: 1rem; }
+            nav .text-2xl { font-size: 1.25rem; letter-spacing: 0.2em; }
+
+            /* Hero Section */
+            #hero-text h1 { font-size: 2.5rem; line-height: 1.1; }
+            #hero-text p { font-size: 1rem; max-width: 100%; }
+            #hero-text .flex.items-center.space-x-6 { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            #hero-text .text-xs { font-size: 0.75rem; }
+
+            /* Hero Form */
+            .glass-form { padding: 1.5rem; }
+            .glass-form h3 { font-size: 1.5rem; }
+            .glass-form p { font-size: 0.75rem; margin-bottom: 1.5rem; }
+            .glass-form .grid.grid-cols-2 { grid-template-columns: 1fr; gap: 1rem; }
+            .glass-form input, .glass-form select { padding: 0.75rem; font-size: 0.875rem; }
+            .glass-form button { padding: 1rem; font-size: 0.75rem; }
+
+            /* Trust Strip */
+            .animate-marquee .text-4xl { font-size: 1.5rem; }
+
+            /* Services Section */
+            #services { padding-top: 4rem; padding-bottom: 4rem; }
+            #services h2 { font-size: 2.5rem; }
+            #services .grid { grid-template-columns: 1fr; gap: 2rem; }
+            #services .service-card { margin-top: 0; }
+            #services .service-card .text-2xl { font-size: 1.25rem; }
+            #services .service-card .text-xs { font-size: 0.75rem; }
+            #services .service-card button { font-size: 0.7rem; padding: 0.5rem 1rem; }
+
+            /* Transformation Section */
+            #transform { padding-top: 4rem; padding-bottom: 4rem; }
+            #transform .grid { grid-template-columns: 1fr; gap: 2rem; }
+            #transform h2 { font-size: 2.5rem; }
+            #transform blockquote { font-size: 1.25rem; }
+            #transform button { padding: 1rem 2rem; font-size: 0.75rem; }
+
+            /* Testimonials */
+            #reviews { padding-top: 4rem; padding-bottom: 4rem; }
+            #reviews h2 { font-size: 2.5rem; }
+            #reviews .grid { grid-template-columns: 1fr; gap: 2rem; }
+            #reviews .glass-card { padding: 1.5rem; }
+            #reviews .glass-card p { font-size: 0.875rem; }
+
+            /* Gallery */
+            .flex.overflow-hidden { padding-left: 1rem; padding-right: 1rem; }
+            .min-w-\[250px\] { min-width: 200px; }
+
+            /* Final CTA */
+            .py-40 { padding-top: 5rem; padding-bottom: 5rem; }
+            .text-6xl { font-size: 2.5rem; }
+            .flex.flex-col { align-items: center; }
+            .space-y-6 { gap: 1rem; }
+            .px-16 { padding-left: 2rem; padding-right: 2rem; }
+            .py-8 { padding-top: 1rem; padding-bottom: 1rem; }
+            .text-\[11px\] { font-size: 0.75rem; }
+
+            /* Footer */
+            footer { padding-top: 3rem; padding-bottom: 3rem; }
+            footer .text-2xl { font-size: 1.25rem; }
+            footer .grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+            footer .text-xs { font-size: 0.75rem; }
+
+            /* Sticky WhatsApp */
+            .fixed.bottom-8.right-8 { bottom: 1rem; right: 1rem; width: 3rem; height: 3rem; }
+            .fixed svg { width: 1rem; height: 1rem; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-[100] px-8 py-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">
+        <div class="flex items-center space-x-2">
+            <div class="text-2xl font-light tracking-[0.4em] uppercase serif italic">Aura Luxe</div>
+        </div>
+        <div class="hidden lg:flex space-x-10 text-[10px] tracking-[0.3em] uppercase font-bold text-white/70">
+            <a href="#services" class="hover:text-[var(--gold)] transition">Treatments</a>
+            <a href="#transform" class="hover:text-[var(--gold)] transition">Gallery</a>
+            <a href="#reviews" class="hover:text-[var(--gold)] transition">Muses</a>
+        </div>
+        <a href="https://wa.me/yournumber" class="hidden md:block border border-[var(--gold)] px-6 py-2 text-[10px] tracking-widest hover:bg-[var(--gold)] hover:text-black transition duration-500">WHATSAPP CONCIERGE</a>
+    </nav>
+
+    <!-- CINEMATIC HERO SECTION -->
+    <section class="relative min-h-screen w-full flex items-center overflow-hidden pt-20">
+        <!-- Background Imagery -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=2000" 
+                 class="w-full h-full object-cover scale-105" id="hero-bg">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            <!-- Content Left -->
+            <div id="hero-text">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="w-12 h-[1px] bg-[var(--gold)]"></div>
+                    <p class="text-[var(--gold)] text-[10px] tracking-[0.5em] uppercase font-bold">The Gold Standard of Beauty</p>
+                </div>
+                <h1 class="text-6xl md:text-6xl serif italic leading-[1.1] mb-6">
+                    Look <span class="not-italic text-outline">Expensive.</span><br>
+                    Feel <span class="text-[var(--gold)]">Unforgettable.</span>
+                </h1>
+                <p class="text-lg font-light text-white/70 max-w-md mb-10 leading-relaxed">
+                    Step into a world of transformation where celebrity-tier artistry meets the luxury of the Soft Life.
+                </p>
+                <div class="flex items-center space-x-6">
+                    <div class="flex -space-x-3">
+                        <img src="asset/img/img1.jpeg" class="w-10 h-10 rounded-full border-2 border-black">
+                        <img src="asset/img/img2.png" class="w-10 h-10 rounded-full border-2 border-black">
+                        <img src="asset/img/img3.png" class="w-10 h-10 rounded-full border-2 border-black">
+                    </div>
+                    <p class="text-xs tracking-widest uppercase text-white/50 italic font-light">Joined by 5,000+ Muses</p>
+                </div>
+            </div>
+
+            <!-- Booking Form Right -->
+            <div id="hero-form" class="relative">
+                <div class="glass-form p-8 md:p-12 rounded-sm relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent"></div>
+                    <h3 class="text-3xl serif italic mb-2">Reserve Your Glow</h3>
+                    <p class="text-[10px] tracking-widest text-white/40 uppercase mb-8">Limited availability for this month</p>
+                    
+                    <form id="booking-form" class="space-y-5">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" id="fullName" placeholder="Full Name" class="p-4 text-sm w-full">
+                            <input type="tel" id="phoneNumber" placeholder="Phone Number" class="p-4 text-sm w-full">
+                        </div>
+                        <select id="treatment" class="p-4 text-sm w-full text-white/50">
+                            <option>Select Signature Treatment</option>
+                            <option class="p-4 text-sm w-full text-black/50">Luxury Hair Installation</option>
+                            <option class="p-4 text-sm w-full text-black/50">Celebrity HD Makeup</option>
+                            <option class="p-4 text-sm w-full text-black/50">Gold-Standard Facial</option>
+                            <option class="p-4 text-sm w-full text-black/50">Bridal Glamour Suite</option>
+                        </select>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="date" id="appointmentDate" class="p-4 text-sm w-full">
+                            <input type="time" id="appointmentTime" class="p-4 text-sm w-full">
+                        </div>
+                        <button type="button" onclick="sendToWhatsApp()" class="btn-glow w-full py-5 text-[11px] font-bold uppercase tracking-[0.3em]">Confirm Luxury Session</button>
+                    </form>
+                    
+                    <div class="mt-6 flex justify-center items-center space-x-2 text-[9px] tracking-widest text-white/30 uppercase">
+                        <svg class="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
+                        <span>Secure SSL Booking</span>
+                    </div>
+                </div>
+                <!-- Floating Decorative Element -->
+                <div class="absolute -bottom-6 -right-6 w-24 h-24 border border-[var(--gold)] opacity-20 hidden md:block"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <section class="py-12 bg-[#050505] border-y border-white/5 overflow-hidden">
+        <div class="flex whitespace-nowrap animate-marquee">
+            <span class="text-4xl md:text-5xl serif italic opacity-10 mx-10">AS SEEN IN VOGUE</span>
+            <span class="text-4xl md:text-5xl serif italic opacity-10 mx-10">PARIS FASHION WEEK</span>
+            <span class="text-4xl md:text-5xl serif italic opacity-10 mx-10">ELLE MAGAZINE</span>
+            <span class="text-4xl md:text-5xl serif italic opacity-10 mx-10">GLAMOUR HUB</span>
+        </div>
+    </section>
+
+    <!-- SIGNATURE SERVICES -->
+    <section id="services" class="py-32 container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-20">
+            <div>
+                <h2 class="text-5xl md:text-7xl serif italic mb-6">Signature <br><span class="text-[var(--gold)]">Treatments.</span></h2>
+                <p class="text-white/50 tracking-widest uppercase text-[10px]">Curation of the world's finest beauty rituals</p>
+            </div>
+            <a href="#" class="mt-8 md:mt-0 text-[10px] font-bold tracking-[0.4em] border-b border-[var(--gold)] pb-2 text-[var(--gold)]">VIEW FULL ATELIER MENU</a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="service-card group cursor-pointer relative overflow-hidden">
+                <div class="aspect-[3/4] overflow-hidden">
+                    <img src="asset/img/img1.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                <div class="absolute bottom-0 p-8">
+                    <h4 class="text-2xl serif italic mb-2">Crown Installation</h4>
+                    <p class="text-xs text-white/60 mb-6 font-light">Luxury wig tailoring & invisible lace artistry.</p>
+                    <button class="text-[9px] font-bold tracking-widest border border-white/20 px-6 py-3 group-hover:bg-[var(--gold)] group-hover:text-black transition duration-500">BOOK FROM $250</button>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="service-card group cursor-pointer relative overflow-hidden mt-12">
+                <div class="aspect-[3/4] overflow-hidden">
+                    <img src="asset/img/img4.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                <div class="absolute bottom-0 p-8">
+                    <h4 class="text-2xl serif italic mb-2">Celestial HD Glam</h4>
+                    <p class="text-xs text-white/60 mb-6 font-light">Cinematic makeup for high-profile moments.</p>
+                    <button class="text-[9px] font-bold tracking-widest border border-white/20 px-6 py-3 group-hover:bg-[var(--gold)] group-hover:text-black transition duration-500">BOOK FROM $150</button>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="service-card group cursor-pointer relative overflow-hidden">
+                <div class="aspect-[3/4] overflow-hidden">
+                    <img src="asset/img/img5.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-110">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                <div class="absolute bottom-0 p-8">
+                    <h4 class="text-2xl serif italic mb-2">Gold-Infused Facials</h4>
+                    <p class="text-xs text-white/60 mb-6 font-light">24K gold hydration & cellular renewal.</p>
+                    <button class="text-[9px] font-bold tracking-widest border border-white/20 px-6 py-3 group-hover:bg-[var(--gold)] group-hover:text-black transition duration-500">BOOK FROM $300</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRANSFORMATION SECTION -->
+    <section id="transform" class="py-32 bg-[#0A0A0A] overflow-hidden">
+        <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+            <div class="relative">
+                <div class="absolute -top-10 -left-10 text-9xl serif italic opacity-[0.03] select-none">GLOW UP</div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <img src="asset/img/img6.jpeg" class="w-full rounded-sm grayscale hover:grayscale-0 transition duration-1000 transform -translate-y-6">
+                        <img src="asset/img/img7.jpeg" class="w-full rounded-sm">
+                    </div>
+                    <div class="pt-12">
+                        <img src="asset/img/img4.jpeg" class="w-full rounded-sm">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-5xl serif italic mb-8">Where the <br><span class="text-[var(--gold)]">Glow-Up</span> is Real.</h2>
+                <blockquote class="text-2xl font-light italic text-white/80 leading-relaxed mb-8">
+                    "I walked in feeling like a regular girl and walked out feeling like a million dollars. The confidence Aura Luxe gives you is addictive."
+                </blockquote>
+                <div class="flex items-center space-x-4 mb-10">
+                    <span class="w-10 h-10 rounded-full bg-[var(--gold)] flex items-center justify-center text-black font-bold">A</span>
+                    <div>
+                        <p class="text-xs font-bold tracking-widest uppercase">Anita J.</p>
+                        <p class="text-[9px] text-white/30 tracking-widest uppercase leading-tight">Lifestyle Influencer</p>
+                    </div>
+                </div>
+                <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="bg-white text-black px-10 py-5 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-[var(--gold)] transition">Start Your Own Transformation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS (EDITORIAL STYLE) -->
+    <section id="reviews" class="py-32 bg-black">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-5xl serif italic mb-24">Voices of Our <span class="text-outline">Muses.</span></h2>
+            <div class="grid md:grid-cols-3 gap-16">
+                <div class="glass-card p-10 relative">
+                    <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-5xl text-[var(--gold)] serif italic">“</span>
+                    <p class="text-sm font-light leading-relaxed mb-8 italic text-white/70">"The makeup didn't just look good in photos; I felt expensive. The attention to detail is something I've only seen in London and Dubai salons."</p>
+                    <p class="text-[10px] tracking-widest uppercase font-bold">Sarah Williams</p>
+                </div>
+                <div class="glass-card p-10 relative md:-translate-y-8">
+                    <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-5xl text-[var(--gold)] serif italic">“</span>
+                    <p class="text-sm font-light leading-relaxed mb-8 italic text-white/70">"Best wig installation of my life. I've had it on for 3 weeks and it still looks like it's growing from my scalp. Truly high-end artistry."</p>
+                    <p class="text-[10px] tracking-widest uppercase font-bold">Michelle D.</p>
+                </div>
+                <div class="glass-card p-10 relative">
+                    <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-5xl text-[var(--gold)] serif italic">“</span>
+                    <p class="text-sm font-light leading-relaxed mb-8 italic text-white/70">"Ordering through WhatsApp was so seamless. They matched my schedule perfectly. The champagne on arrival was the cherry on top!"</p>
+                    <p class="text-[10px] tracking-widest uppercase font-bold">Kemi Adeleke</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTAGRAM-STYLE GALLERY -->
+<section class="py-20 bg-[#050505]">
+    <div class="text-center mb-12">
+        <p class="text-[var(--gold)] text-[9px] tracking-[0.5em] uppercase font-bold mb-4">
+            Follow the Aesthetic
+        </p>
+        <h3 class="text-3xl serif italic italic">@AuraLuxeSalon</h3>
+    </div>
+
+    <div class="flex overflow-x-auto gap-4 px-4 snap-x snap-mandatory scrollbar-hide">
+        
+        <div class="min-w-[250px] aspect-square bg-gray-900 overflow-hidden snap-start">
+            <img src="asset/img/img1.jpeg"
+                class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+        </div>
+
+        <div class="min-w-[250px] aspect-square bg-gray-900 overflow-hidden snap-start">
+            <img src="asset/img/img7.jpeg"
+                class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+        </div>
+
+        <div class="min-w-[250px] aspect-square bg-gray-900 overflow-hidden snap-start">
+            <img src="asset/img/img6.jpeg"
+                class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+        </div>
+
+        <div class="min-w-[250px] aspect-square bg-gray-900 overflow-hidden snap-start">
+            <img src="asset/img/img4.jpeg"
+                class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+        </div>
+
+        <div class="min-w-[250px] aspect-square bg-gray-900 overflow-hidden snap-start">
+            <img src="asset/img/img5.jpeg"
+                class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+        </div>
+
+    </div>
+</section>
+
+    <!-- FINAL CONVERSION CTA -->
+    <section class="py-40 bg-white text-black text-center relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-6xl md:text-8xl serif italic leading-none mb-12">The World is <br><span class="text-[var(--gold)]">Watching.</span></h2>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-8">
+                <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="bg-black text-white px-16 py-8 text-[11px] font-bold uppercase tracking-[0.4em] hover:bg-[var(--gold)] transition-all">Book Your Glow-Up</button>
+                <button onclick="window.open('https://wa.me/2349017430885', '_blank')" class="border-2 border-black px-16 py-8 text-[11px] font-bold uppercase tracking-[0.4em] hover:bg-black hover:text-white transition-all">WhatsApp Concierge</button>
+            </div>
+            <p class="mt-12 text-[9px] tracking-[0.5em] uppercase opacity-40">Luxury Appointments Only • VIP Service Guaranteed</p>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] serif italic font-bold opacity-[0.02] select-none pointer-events-none">AURA</div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-20 bg-black border-t border-white/5 text-center">
+        <div class="container mx-auto px-6">
+            <div class="text-2xl font-light tracking-[0.5em] uppercase serif italic mb-12">Aura Luxe</div>
+            <div class="grid md:grid-cols-4 gap-12 text-left mb-16">
+                <div>
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-6 text-[var(--gold)]">Visit Us</p>
+                    <p class="text-xs text-white/40 leading-loose">14 Luxury Row, Victoria Island<br>Lagos, Nigeria</p>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-6 text-[var(--gold)]">Contact</p>
+                    <p class="text-xs text-white/40 leading-loose">concierge@auraluxe.com<br>+234 800 AURA LUXE</p>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-6 text-[var(--gold)]">Hours</p>
+                    <p class="text-xs text-white/40 leading-loose">Mon - Sat: 9am - 8pm<br>Sunday: VIP Bookings Only</p>
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-6 text-[var(--gold)]">Legal</p>
+                    <p class="text-xs text-white/40 leading-loose">Privacy Policy<br>Cancellation Policy</p>
+                </div>
+            </div>
+            <p class="text-[9px] tracking-widest uppercase opacity-20">© 2026 Aura Luxe Atelier. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- STICKY WHATSAPP FAB -->
+    <a href="https://wa.me/+2349017430885" class="fixed bottom-8 right-8 z-[200] w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition transition-transform">
+        <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+    </a>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // WhatsApp Booking Function
+        function sendToWhatsApp() {
+            const fullName = document.getElementById('fullName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const treatment = document.getElementById('treatment').value;
+            const appointmentDate = document.getElementById('appointmentDate').value;
+            const appointmentTime = document.getElementById('appointmentTime').value;
+
+            // Validation
+            if (!fullName || !phoneNumber || treatment === 'Select Signature Treatment' || !appointmentDate || !appointmentTime) {
+                alert('Please fill in all booking details');
+                return;
+            }
+
+            // Format message
+            const message = `Hi Aura Luxe! I'd like to book an appointment with the following details:%0A%0A*Name:* ${fullName}%0A*Phone:* ${phoneNumber}%0A*Treatment:* ${treatment}%0A*Date:* ${appointmentDate}%0A*Time:* ${appointmentTime}%0A%0APlease confirm my booking.`;
+
+            // Replace 'yournumber' with actual salon WhatsApp number (update this with real number)
+            const saloonNumber = '2349017430885'; // Update with actual WhatsApp number
+            window.open(`https://wa.me/${saloonNumber}?text=${message}`, '_blank');
+        }
+
+        // Initial Reveal
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
+            tl.from("#hero-bg", { scale: 1.2, duration: 2, ease: "power4.out" })
+              .from("#hero-text h1", { y: 100, opacity: 0, duration: 1.2, ease: "power4.out" }, "-=1.5")
+              .from("#hero-form", { x: 100, opacity: 0, duration: 1.2, ease: "power4.out" }, "-=1")
+              .from("nav", { y: -50, opacity: 0, duration: 1 }, "-=1");
+        });
+
+        // Parallax Effect
+        gsap.to("#hero-bg", {
+            yPercent: 20,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "section",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Marquee Animation
+        gsap.to(".animate-marquee", {
+            xPercent: -50,
+            repeat: -1,
+            duration: 20,
+            ease: "none"
+        });
+
+        // Service Cards Reveal
+        gsap.utils.toArray('.service-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%"
+                },
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                delay: i * 0.2
+            });
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
